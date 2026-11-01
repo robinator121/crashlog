@@ -1,0 +1,4 @@
+$ build/shared-handle-boundary
+unsupported shared-handle concurrency: 2 successful appends, 1 stored record(s)
+
+exit_status=0

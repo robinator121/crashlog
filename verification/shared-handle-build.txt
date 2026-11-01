@@ -1,0 +1,3 @@
+$ cc -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -Iinclude -D_FILE_OFFSET_BITS=64 tests/shared_handle_boundary.c src/crashlog.c -Wl,--wrap=pwrite -Wl,--wrap=pwrite64 -o build/shared-handle-boundary
+
+exit_status=0

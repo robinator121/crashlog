@@ -1,0 +1,4 @@
+$ python3 tests/adversarial_review.py build/crashlog
+PASS: 609 independently classified images; 4263 parser/repair/append checks
+
+exit_status=0

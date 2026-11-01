@@ -1,0 +1,39 @@
+[
+  {
+    "name": "root-gcc",
+    "command": [
+      "make",
+      "BUILD=build-root-gcc",
+      "CC=gcc",
+      "all",
+      "test"
+    ],
+    "exit": 0,
+    "seconds": 1.138
+  },
+  {
+    "name": "root-clang",
+    "command": [
+      "make",
+      "BUILD=build-root-clang",
+      "CC=clang",
+      "all",
+      "test"
+    ],
+    "exit": 0,
+    "seconds": 0.962
+  },
+  {
+    "name": "root-sanitize",
+    "command": [
+      "make",
+      "BUILD=build-root-sanitize",
+      "CC=clang",
+      "CFLAGS=-std=c11 -O1 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -fno-omit-frame-pointer -fsanitize=address,undefined",
+      "LDFLAGS=-fsanitize=address,undefined",
+      "test"
+    ],
+    "exit": 0,
+    "seconds": 4.531
+  }
+]

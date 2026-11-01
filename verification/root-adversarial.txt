@@ -1,0 +1,8 @@
+$ make BUILD=build-root-gcc CC=gcc adversarial
+gcc -D_POSIX_C_SOURCE=200809L -D_FILE_OFFSET_BITS=64 -Iinclude -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror tests/shared_handle_boundary.c build-root-gcc/libcrashlog.a -Wl,--wrap=pwrite -Wl,--wrap=pwrite64  -o build-root-gcc/shared_handle_boundary
+python3 tests/adversarial_review.py ./build-root-gcc/crashlog
+PASS: 609 independently classified images; 4263 parser/repair/append checks
+./build-root-gcc/shared_handle_boundary
+unsupported shared-handle concurrency: 2 successful appends, 1 stored record(s)
+
+exit=0

@@ -1,0 +1,12 @@
+argv=["make", "BUILD=build-root-sanitize", "CC=clang", "CFLAGS=-std=c11 -O1 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -fno-omit-frame-pointer -fsanitize=address,undefined", "LDFLAGS=-fsanitize=address,undefined", "test"]
+mkdir -p build-root-sanitize
+clang -D_POSIX_C_SOURCE=200809L -D_FILE_OFFSET_BITS=64 -Iinclude -std=c11 -O1 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -fno-omit-frame-pointer -fsanitize=address,undefined -c src/crashlog.c -o build-root-sanitize/crashlog.o
+ar rcs build-root-sanitize/libcrashlog.a build-root-sanitize/crashlog.o
+clang -D_POSIX_C_SOURCE=200809L -D_FILE_OFFSET_BITS=64 -Iinclude -std=c11 -O1 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -fno-omit-frame-pointer -fsanitize=address,undefined src/main.c build-root-sanitize/libcrashlog.a -fsanitize=address,undefined -o build-root-sanitize/crashlog
+clang -D_POSIX_C_SOURCE=200809L -D_FILE_OFFSET_BITS=64 -Iinclude -std=c11 -O1 -g -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror -fno-omit-frame-pointer -fsanitize=address,undefined tests/test_crashlog.c build-root-sanitize/libcrashlog.a -Wl,--wrap=pwrite -Wl,--wrap=pwrite64 -Wl,--wrap=pread -Wl,--wrap=pread64 -Wl,--wrap=fdatasync -fsanitize=address,undefined -o build-root-sanitize/test_crashlog
+./build-root-sanitize/test_crashlog
+PASS: 1553 C assertions; every append byte cutoff; short/EINTR/failed I/O; locks; SIGKILL before/after sync
+python3 tests/test_wire.py ./build-root-sanitize/crashlog
+PASS: 894 independent wire/CLI checks (struct + zlib oracle)
+
+exit=0

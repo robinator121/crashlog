@@ -1,0 +1,4 @@
+$ ASAN_OPTIONS=detect_leaks=1:abort_on_error=1 UBSAN_OPTIONS=halt_on_error=1 python3 tests/adversarial_review.py build-sanitize/crashlog
+PASS: 609 independently classified images; 4263 parser/repair/append checks
+
+exit_status=0
